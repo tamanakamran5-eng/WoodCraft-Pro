@@ -1,0 +1,436 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
+.page{display:none}
+.page.active{display:block}
+.nav{background:#1a3a1a;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100}
+.nav-logo{color:#C0DD97;font-size:16px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px}
+.nav-links{display:flex;gap:14px;align-items:center}
+.nav-links a{color:#9FE1CB;font-size:13px;cursor:pointer;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:#C0DD97;border-bottom:2px solid #639922}
+.nav-btn{background:#3B6D11;color:#EAF3DE;border:none;padding:7px 16px;border-radius:20px;font-size:12px;cursor:pointer}
+.nav-btn:hover{background:#27500A}
+
+.hero-sec{background:#1a3a1a;padding:60px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.hero-text h1{color:#C0DD97;font-size:28px;font-weight:500;line-height:1.3;margin-bottom:12px}
+.hero-text p{color:#9FE1CB;font-size:14px;line-height:1.7;max-width:380px;margin-bottom:20px}
+.hero-btns{display:flex;gap:12px}
+.btn-g{background:#3B6D11;color:#EAF3DE;border:none;padding:10px 22px;border-radius:6px;font-size:13px;cursor:pointer}
+.btn-g:hover{background:#27500A}
+.btn-o{background:transparent;color:#C0DD97;border:1.5px solid #639922;padding:10px 22px;border-radius:6px;font-size:13px;cursor:pointer}
+.btn-o:hover{background:#27500A;border-color:#27500A}
+.hero-badge{background:#27500A;border:1px solid #3B6D11;border-radius:10px;padding:24px;text-align:center;min-width:150px}
+.hero-badge i{font-size:40px;color:#97C459}
+.hero-badge p{color:#9FE1CB;font-size:12px;margin-top:8px}
+
+.section{padding:40px 32px;background:#f9f7f4}
+.section.alt{background:#EAF3DE}
+.section.dark{background:#1a3a1a}
+.sec-title{font-size:20px;font-weight:500;color:#27500A;text-align:center;margin-bottom:8px}
+.sec-title.light{color:#C0DD97}
+.sec-sub{font-size:13px;color:#5F5E5A;text-align:center;margin-bottom:28px}
+.sec-sub.light{color:#9FE1CB}
+
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px}
+.srv-card{background:#fff;border:0.5px solid #C0DD97;border-radius:10px;padding:20px 14px;text-align:center;cursor:pointer;transition:border .2s}
+.srv-card:hover{border:1.5px solid #3B6D11}
+.srv-card i{font-size:28px;color:#3B6D11}
+.srv-card h3{font-size:13px;font-weight:500;color:#27500A;margin:10px 0 4px}
+.srv-card p{font-size:11px;color:#5F5E5A}
+
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.gal-item{background:#C0DD97;border-radius:8px;height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:background .2s}
+.gal-item:hover{background:#97C459}
+.gal-item i{font-size:24px;color:#27500A}
+.gal-item span{font-size:10px;color:#27500A;font-weight:500}
+
+.about-flex{display:flex;gap:28px;align-items:center}
+.about-avatar{background:#EAF3DE;border:1.5px solid #C0DD97;border-radius:12px;width:120px;height:120px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.about-avatar i{font-size:40px;color:#3B6D11}
+.about-avatar span{font-size:11px;color:#27500A;font-weight:500}
+.about-content h3{font-size:18px;font-weight:500;color:#27500A;margin-bottom:10px}
+.about-content p{font-size:13px;color:#5F5E5A;line-height:1.7;margin-bottom:10px}
+.stat-row{display:flex;gap:16px;margin-top:14px}
+.stat-box{background:#EAF3DE;border:0.5px solid #C0DD97;border-radius:8px;padding:10px 16px;text-align:center}
+.stat-box span{font-size:20px;font-weight:500;color:#27500A;display:block}
+.stat-box p{font-size:11px;color:#5F5E5A}
+
+.contact-flex{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.contact-info{background:#EAF3DE;border-radius:10px;padding:20px}
+.contact-info h3{font-size:15px;font-weight:500;color:#27500A;margin-bottom:14px}
+.contact-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.contact-row i{font-size:18px;color:#3B6D11}
+.contact-row p{font-size:13px;color:#27500A}
+.contact-form{display:flex;flex-direction:column;gap:10px}
+.contact-form input,.contact-form textarea,.contact-form select{width:100%;padding:9px 12px;border:0.5px solid #C0DD97;border-radius:6px;font-size:13px;background:#fff;color:#1a3a1a;outline:none}
+.contact-form input:focus,.contact-form textarea:focus{border-color:#3B6D11}
+.contact-form button{background:#3B6D11;color:#EAF3DE;border:none;padding:10px;border-radius:6px;font-size:13px;cursor:pointer}
+.contact-form button:hover{background:#27500A}
+
+.toast{position:fixed;bottom:20px;right:20px;background:#27500A;color:#C0DD97;padding:12px 20px;border-radius:8px;font-size:13px;z-index:9999;display:none;border:0.5px solid #3B6D11}
+
+.login-wrap{min-height:500px;background:#EAF3DE;display:flex;align-items:center;justify-content:center;padding:40px}
+.login-box{background:#fff;border:0.5px solid #C0DD97;border-radius:14px;padding:32px;width:100%;max-width:340px}
+.login-box h2{font-size:18px;font-weight:500;color:#27500A;margin-bottom:6px}
+.login-box p{font-size:12px;color:#5F5E5A;margin-bottom:20px}
+.login-box .tab-btns{display:flex;gap:0;margin-bottom:20px;border:0.5px solid #C0DD97;border-radius:6px;overflow:hidden}
+.login-box .tab-btns button{flex:1;padding:8px;border:none;background:transparent;font-size:13px;cursor:pointer;color:#5F5E5A}
+.login-box .tab-btns button.active{background:#3B6D11;color:#EAF3DE}
+.form-group{margin-bottom:12px}
+.form-group label{font-size:11px;color:#5F5E5A;display:block;margin-bottom:4px}
+.form-group input{width:100%;padding:9px 12px;border:0.5px solid #C0DD97;border-radius:6px;font-size:13px;background:#f9f7f4;color:#1a3a1a;outline:none}
+.form-group input:focus{border-color:#3B6D11}
+.login-submit{width:100%;background:#3B6D11;color:#EAF3DE;border:none;padding:10px;border-radius:6px;font-size:13px;cursor:pointer;margin-top:4px}
+.login-submit:hover{background:#27500A}
+.login-note{font-size:11px;color:#5F5E5A;text-align:center;margin-top:12px}
+.hint{font-size:11px;color:#3B6D11;background:#EAF3DE;padding:8px 12px;border-radius:6px;margin-bottom:14px;border-left:3px solid #3B6D11;border-radius:0}
+
+.admin-wrap{background:#f9f7f4;min-height:600px;display:flex}
+.admin-sidebar{width:200px;background:#1a3a1a;padding:16px 0;flex-shrink:0}
+.admin-sidebar .brand{color:#C0DD97;font-size:14px;font-weight:500;padding:0 16px 16px;border-bottom:0.5px solid #27500A}
+.admin-menu{padding:12px 0}
+.admin-menu a{display:flex;align-items:center;gap:10px;padding:10px 16px;color:#9FE1CB;font-size:13px;cursor:pointer;text-decoration:none;transition:background .2s}
+.admin-menu a:hover,.admin-menu a.active{background:#27500A;color:#C0DD97}
+.admin-menu a i{font-size:16px}
+.admin-content{flex:1;padding:24px;overflow:auto}
+.admin-content h2{font-size:18px;font-weight:500;color:#27500A;margin-bottom:20px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:#fff;border:0.5px solid #C0DD97;border-radius:10px;padding:16px}
+.stat-card p{font-size:11px;color:#5F5E5A;margin-bottom:6px}
+.stat-card span{font-size:22px;font-weight:500;color:#27500A}
+.stat-card .badge{font-size:10px;background:#EAF3DE;color:#3B6D11;padding:2px 8px;border-radius:10px;margin-top:4px;display:inline-block}
+.orders-table{background:#fff;border:0.5px solid #C0DD97;border-radius:10px;overflow:hidden;margin-bottom:20px}
+.orders-table table{width:100%;border-collapse:collapse}
+.orders-table th{background:#EAF3DE;padding:10px 14px;font-size:12px;font-weight:500;color:#27500A;text-align:left}
+.orders-table td{padding:10px 14px;font-size:12px;color:#5F5E5A;border-top:0.5px solid #EAF3DE}
+.orders-table tr:hover td{background:#f9f7f4}
+.badge-status{font-size:10px;padding:3px 10px;border-radius:10px;font-weight:500}
+.badge-done{background:#EAF3DE;color:#27500A}
+.badge-pending{background:#FAEEDA;color:#633806}
+.badge-progress{background:#E6F1FB;color:#0C447C}
+.admin-sub{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mini-card{background:#fff;border:0.5px solid #C0DD97;border-radius:10px;padding:16px}
+.mini-card h4{font-size:13px;font-weight:500;color:#27500A;margin-bottom:12px}
+.msg-item{padding:8px 0;border-bottom:0.5px solid #EAF3DE;font-size:12px;color:#5F5E5A}
+.msg-item span{color:#27500A;font-weight:500}
+.setting-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:0.5px solid #EAF3DE}
+.setting-row label{font-size:13px;color:#27500A}
+.toggle{width:36px;height:20px;background:#C0DD97;border-radius:10px;cursor:pointer;position:relative;border:none}
+.toggle.on{background:#3B6D11}
+.toggle::after{content:'';position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:3px;left:3px;transition:left .2s}
+.toggle.on::after{left:19px}
+
+.footer-sec{background:#0d1f0d;padding:28px 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px;margin-bottom:20px}
+.footer-col h4{color:#C0DD97;font-size:13px;font-weight:500;margin-bottom:12px}
+.footer-col p,.footer-col a{color:#9FE1CB;font-size:12px;line-height:1.8;display:block;text-decoration:none;cursor:pointer}
+.footer-col a:hover{color:#C0DD97}
+.footer-bottom{border-top:0.5px solid #27500A;padding-top:14px;display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{color:#5DCAA5;font-size:11px}
+</style>
+
+<div class="toast" id="toast"></div>
+
+<nav class="nav">
+  <div class="nav-logo" onclick="showPage('home')"><i class="ti ti-tools" aria-hidden="true"></i> CarpenterWorks</div>
+  <div class="nav-links">
+    <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
+    <a onclick="showPage('services')" id="nav-services">Services</a>
+    <a onclick="showPage('gallery')" id="nav-gallery">Gallery</a>
+    <a onclick="showPage('about')" id="nav-about">About</a>
+    <a onclick="showPage('contact')" id="nav-contact">Contact</a>
+  </div>
+  <button class="nav-btn" onclick="showPage('login')"><i class="ti ti-user" aria-hidden="true"></i> Login</button>
+</nav>
+
+<div id="page-home" class="page active">
+  <div class="hero-sec">
+    <div class="hero-text">
+      <h1>Expert Wooden Work<br>Crafted with Care</h1>
+      <p>Professional carpenter services — custom furniture, doors, windows, and all types of wooden work for your home and office.</p>
+      <div class="hero-btns">
+        <button class="btn-g" onclick="showPage('services')">Our Services</button>
+        <button class="btn-o" onclick="showPage('contact')">Get Quote</button>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <i class="ti ti-hammer" aria-hidden="true"></i>
+      <p>20+ Years<br>Experience</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="sec-title">What We Do</p>
+    <p class="sec-sub">Quality wooden work for every need</p>
+    <div class="services-grid">
+      <div class="srv-card" onclick="showPage('services')"><i class="ti ti-armchair" aria-hidden="true"></i><h3>Furniture</h3><p>Custom sofa, beds, tables</p></div>
+      <div class="srv-card" onclick="showPage('services')"><i class="ti ti-door" aria-hidden="true"></i><h3>Doors & Windows</h3><p>All types, all sizes</p></div>
+      <div class="srv-card" onclick="showPage('services')"><i class="ti ti-tools" aria-hidden="true"></i><h3>Repair Work</h3><p>Fast & reliable fixing</p></div>
+      <div class="srv-card" onclick="showPage('services')"><i class="ti ti-ruler" aria-hidden="true"></i><h3>Custom Orders</h3><p>Your design, our craft</p></div>
+    </div>
+  </div>
+
+  <div class="section alt">
+    <p class="sec-title">Our Recent Work</p>
+    <p class="sec-sub">Some of the projects we are proud of</p>
+    <div class="gallery-grid">
+      <div class="gal-item"><i class="ti ti-armchair" aria-hidden="true"></i><span>Sofa Set</span></div>
+      <div class="gal-item"><i class="ti ti-door" aria-hidden="true"></i><span>Main Door</span></div>
+      <div class="gal-item"><i class="ti ti-bed" aria-hidden="true"></i><span>Bed Frame</span></div>
+      <div class="gal-item"><i class="ti ti-layout-board" aria-hidden="true"></i><span>Kitchen Cabinet</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-services" class="page">
+  <div class="section">
+    <p class="sec-title">Our Services</p>
+    <p class="sec-sub">Professional wooden work — done right the first time</p>
+    <div class="services-grid">
+      <div class="srv-card"><i class="ti ti-armchair" aria-hidden="true"></i><h3>Furniture Making</h3><p>Sofa sets, dining tables, beds, wardrobes and all custom furniture</p></div>
+      <div class="srv-card"><i class="ti ti-door" aria-hidden="true"></i><h3>Doors & Windows</h3><p>Main doors, bedroom doors, windows — all types of wood</p></div>
+      <div class="srv-card"><i class="ti ti-tools" aria-hidden="true"></i><h3>Repair & Polish</h3><p>Old furniture repair, wood polishing and restoration</p></div>
+      <div class="srv-card"><i class="ti ti-ruler" aria-hidden="true"></i><h3>Custom Orders</h3><p>Bring your design, we will build it exactly as you want</p></div>
+      <div class="srv-card"><i class="ti ti-layout-board" aria-hidden="true"></i><h3>Kitchen Cabinets</h3><p>Modern and traditional kitchen cabinet fitting</p></div>
+      <div class="srv-card"><i class="ti ti-stairs" aria-hidden="true"></i><h3>Stairs & Railings</h3><p>Wooden stairs, handrails, and balcony railings</p></div>
+    </div>
+  </div>
+  <div class="section alt">
+    <p class="sec-title" style="text-align:left;margin-bottom:16px">Pricing Guide</p>
+    <div style="background:#fff;border:0.5px solid #C0DD97;border-radius:10px;overflow:hidden">
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr style="background:#EAF3DE"><th style="padding:12px 16px;font-size:12px;font-weight:500;color:#27500A;text-align:left">Service</th><th style="padding:12px 16px;font-size:12px;font-weight:500;color:#27500A;text-align:left">Starting From</th><th style="padding:12px 16px;font-size:12px;font-weight:500;color:#27500A;text-align:left">Time</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:10px 16px;font-size:13px;color:#5F5E5A;border-top:0.5px solid #EAF3DE">Furniture Making</td><td style="padding:10px 16px;font-size:13px;color:#27500A;border-top:0.5px solid #EAF3DE">Rs. 15,000</td><td style="padding:10px 16px;font-size:13px;color:#5F5E5A;border-top:0.5px solid #EAF3DE">3-7 days</td></tr>
+          <tr><td style="padding:10px 16px;font-size:13px;color:#5F5E5A;border-top:0.5px solid #EAF3DE">Door Installation</td><td style="padding:10px 16px;font-size:13px;color:#27500A;border-top:0.5px solid #EAF3DE">Rs. 8,000</td><td style="padding:10px 16px;font-size:13px;color:#5F5E5A;border-top:0.5px solid #EAF3DE">1-2 days</td></tr>
+          <tr><td style="padding:10px 16px;font-size:13px;color:#5F5E5A;border-top:0.5px solid #EAF3DE">Repair Work</td><td style="padding:10px 16px;font-size:13px;color:#27500A;border-top:0.5px solid #EAF3DE">Rs. 2,000</td><td style="padding:10px 16px;font-size:13px;color:#5F5E5A;border-top:0.5px solid #EAF3DE">Same day</td></tr>
+          <tr><td style="padding:10px 16px;font-size:13px;color:#5F5E5A;border-top:0.5px solid #EAF3DE">Kitchen Cabinets</td><td style="padding:10px 16px;font-size:13px;color:#27500A;border-top:0.5px solid #EAF3DE">Rs. 25,000</td><td style="padding:10px 16px;font-size:13px;color:#5F5E5A;border-top:0.5px solid #EAF3DE">5-10 days</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="page-gallery" class="page">
+  <div class="section">
+    <p class="sec-title">Work Gallery</p>
+    <p class="sec-sub">Photos of our completed projects</p>
+    <div class="gallery-grid">
+      <div class="gal-item" style="height:100px"><i class="ti ti-armchair" aria-hidden="true"></i><span>Living Room Set</span></div>
+      <div class="gal-item" style="height:100px"><i class="ti ti-door" aria-hidden="true"></i><span>Main Door</span></div>
+      <div class="gal-item" style="height:100px"><i class="ti ti-bed" aria-hidden="true"></i><span>King Bed</span></div>
+      <div class="gal-item" style="height:100px"><i class="ti ti-layout-board" aria-hidden="true"></i><span>Kitchen</span></div>
+      <div class="gal-item" style="height:100px"><i class="ti ti-table" aria-hidden="true"></i><span>Dining Table</span></div>
+      <div class="gal-item" style="height:100px"><i class="ti ti-stairs" aria-hidden="true"></i><span>Staircase</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-about" class="page">
+  <div class="section">
+    <p class="sec-title">About Us</p>
+    <p class="sec-sub">Our story and our promise</p>
+    <div class="about-flex">
+      <div class="about-avatar"><i class="ti ti-user-circle" aria-hidden="true"></i><span>Ustad Ahmed</span></div>
+      <div class="about-content">
+        <h3>Family Craft, Passed Down with Pride</h3>
+        <p>Our master carpenter Ustad Ahmed has been working with wood for over 20 years. Every piece of furniture, every door, every cabinet he makes is crafted with full attention and love for the work.</p>
+        <p>We believe every home deserves quality woodwork that lasts for generations. We use the finest wood and traditional techniques combined with modern designs.</p>
+        <div class="stat-row">
+          <div class="stat-box"><span>20+</span><p>Years exp.</p></div>
+          <div class="stat-box"><span>500+</span><p>Happy clients</p></div>
+          <div class="stat-box"><span>1000+</span><p>Projects done</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-contact" class="page">
+  <div class="section">
+    <p class="sec-title">Contact Us</p>
+    <p class="sec-sub">Get a free quote or ask anything</p>
+    <div class="contact-flex">
+      <div class="contact-info">
+        <h3>Get in Touch</h3>
+        <div class="contact-row"><i class="ti ti-phone" aria-hidden="true"></i><p>0300-1234567</p></div>
+        <div class="contact-row"><i class="ti ti-mail" aria-hidden="true"></i><p>info@carpenterworks.pk</p></div>
+        <div class="contact-row"><i class="ti ti-map-pin" aria-hidden="true"></i><p>Lahore, Punjab, Pakistan</p></div>
+        <div class="contact-row"><i class="ti ti-clock" aria-hidden="true"></i><p>Mon–Sat: 8am – 8pm</p></div>
+      </div>
+      <div class="contact-form">
+        <input type="text" id="c-name" placeholder="Your Full Name" />
+        <input type="text" id="c-phone" placeholder="Phone Number (03XX-XXXXXXX)" />
+        <input type="email" id="c-email" placeholder="Email Address" />
+        <select id="c-service"><option value="">Select Service</option><option>Furniture Making</option><option>Door / Window</option><option>Repair Work</option><option>Kitchen Cabinet</option><option>Custom Order</option></select>
+        <textarea rows="3" id="c-msg" placeholder="Tell us about your requirement..."></textarea>
+        <button onclick="submitContact()"><i class="ti ti-send" aria-hidden="true"></i> Send Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-login" class="page">
+  <div class="login-wrap">
+    <div class="login-box">
+      <h2>Welcome Back</h2>
+      <p>Sign in to your account</p>
+      <div class="hint"><i class="ti ti-info-circle" aria-hidden="true"></i> Demo: use <b>admin@cw.pk</b> / <b>admin123</b> for Admin Panel</div>
+      <div class="tab-btns">
+        <button class="active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+        <button id="tab-register" onclick="switchTab('register')">Register</button>
+      </div>
+      <div id="form-login">
+        <div class="form-group"><label>Email</label><input type="email" id="l-email" placeholder="email@example.com" /></div>
+        <div class="form-group"><label>Password</label><input type="password" id="l-pass" placeholder="••••••••" /></div>
+        <button class="login-submit" onclick="doLogin()">Sign In</button>
+        <p class="login-note" style="margin-top:10px;cursor:pointer;color:#3B6D11" onclick="switchTab('register')">Don't have account? Register</p>
+      </div>
+      <div id="form-register" style="display:none">
+        <div class="form-group"><label>Full Name</label><input type="text" id="r-name" placeholder="Your name" /></div>
+        <div class="form-group"><label>Email</label><input type="email" id="r-email" placeholder="email@example.com" /></div>
+        <div class="form-group"><label>Password</label><input type="password" id="r-pass" placeholder="Create password" /></div>
+        <button class="login-submit" onclick="doRegister()">Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-admin" class="page">
+  <div class="admin-wrap">
+    <div class="admin-sidebar">
+      <div class="brand"><i class="ti ti-shield" aria-hidden="true"></i> Admin Panel</div>
+      <div class="admin-menu">
+        <a class="active" onclick="adminTab('dash')"><i class="ti ti-layout-dashboard" aria-hidden="true"></i> Dashboard</a>
+        <a onclick="adminTab('orders')"><i class="ti ti-clipboard-list" aria-hidden="true"></i> Orders</a>
+        <a onclick="adminTab('gallery')"><i class="ti ti-photo" aria-hidden="true"></i> Gallery</a>
+        <a onclick="adminTab('messages')"><i class="ti ti-mail" aria-hidden="true"></i> Messages</a>
+        <a onclick="adminTab('settings')"><i class="ti ti-settings" aria-hidden="true"></i> Settings</a>
+        <a onclick="showPage('home')" style="margin-top:20px"><i class="ti ti-logout" aria-hidden="true"></i> Logout</a>
+      </div>
+    </div>
+    <div class="admin-content" id="admin-content">
+      <h2>Dashboard</h2>
+      <div class="stats-row">
+        <div class="stat-card"><p>Total Orders</p><span>142</span><div class="badge">+12 this month</div></div>
+        <div class="stat-card"><p>Active Users</p><span>38</span><div class="badge">+5 new</div></div>
+        <div class="stat-card"><p>Gallery Items</p><span>24</span><div class="badge">Updated</div></div>
+        <div class="stat-card"><p>Messages</p><span>17</span><div class="badge">3 unread</div></div>
+      </div>
+      <div class="orders-table">
+        <table>
+          <thead><tr><th>Order ID</th><th>Client</th><th>Service</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>#001</td><td>Ali Raza</td><td>Furniture Making</td><td>01 Jun 2025</td><td><span class="badge-status badge-done">Completed</span></td></tr>
+            <tr><td>#002</td><td>Sara Khan</td><td>Kitchen Cabinet</td><td>02 Jun 2025</td><td><span class="badge-status badge-progress">In Progress</span></td></tr>
+            <tr><td>#003</td><td>Ahmed Malik</td><td>Door Installation</td><td>03 Jun 2025</td><td><span class="badge-status badge-pending">Pending</span></td></tr>
+            <tr><td>#004</td><td>Fatima Noor</td><td>Repair Work</td><td>03 Jun 2025</td><td><span class="badge-status badge-done">Completed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="admin-sub">
+        <div class="mini-card"><h4>Recent Messages</h4>
+          <div class="msg-item"><span>Bilal Ahmed:</span> Need sofa set quote please</div>
+          <div class="msg-item"><span>Nadia Khan:</span> When can you visit for measurement?</div>
+          <div class="msg-item"><span>Usman Ali:</span> Repair needed urgently</div>
+        </div>
+        <div class="mini-card"><h4>Quick Settings</h4>
+          <div class="setting-row"><label>Accept New Orders</label><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+          <div class="setting-row"><label>Email Notifications</label><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+          <div class="setting-row"><label>WhatsApp Alerts</label><button class="toggle" onclick="this.classList.toggle('on')"></button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-home-footer"></div>
+
+<div id="footer-main">
+  <div class="footer-sec">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4><i class="ti ti-tools" aria-hidden="true"></i> CarpenterWorks</h4>
+        <p>Professional carpenter services with 20+ years of experience. Quality woodwork for your home and office.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a onclick="showPage('services')">Services</a>
+        <a onclick="showPage('gallery')">Gallery</a>
+        <a onclick="showPage('about')">About Us</a>
+        <a onclick="showPage('contact')">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>0300-1234567</p>
+        <p>info@carpenterworks.pk</p>
+        <p>Lahore, Punjab, Pakistan</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 CarpenterWorks — All rights reserved</p>
+      <p>Made with care for Ustad Ahmed</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const pages=['home','services','gallery','about','contact','login','admin'];
+function showPage(p){
+  pages.forEach(x=>{
+    const el=document.getElementById('page-'+x);
+    if(el) el.classList.remove('active');
+    const nav=document.getElementById('nav-'+x);
+    if(nav) nav.classList.remove('active');
+  });
+  const target=document.getElementById('page-'+p);
+  if(target) target.classList.add('active');
+  const navLink=document.getElementById('nav-'+p);
+  if(navLink) navLink.classList.add('active');
+  document.getElementById('footer-main').style.display=(p==='admin')?'none':'block';
+}
+function switchTab(t){
+  document.getElementById('form-login').style.display=t==='login'?'block':'none';
+  document.getElementById('form-register').style.display=t==='register'?'block':'none';
+  document.getElementById('tab-login').classList.toggle('active',t==='login');
+  document.getElementById('tab-register').classList.toggle('active',t==='register');
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.display='block';
+  setTimeout(()=>t.style.display='none',3000);
+}
+function doLogin(){
+  const e=document.getElementById('l-email').value;
+  const p=document.getElementById('l-pass').value;
+  if(!e||!p){showToast('Email aur password daalen!');return;}
+  if(e==='admin@cw.pk'&&p==='admin123'){showPage('admin');showToast('Admin panel mein khush aamdeed!');}
+  else if(e&&p.length>=4){showPage('home');showToast('Login successful! Welcome back.');}
+  else{showToast('Galat email ya password!');}
+}
+function doRegister(){
+  const n=document.getElementById('r-name').value;
+  const e=document.getElementById('r-email').value;
+  const p=document.getElementById('r-pass').value;
+  if(!n||!e||!p){showToast('Sab fields bharen!');return;}
+  if(p.length<6){showToast('Password kam az kam 6 characters ka hona chahiye!');return;}
+  showToast('Account ban gaya! Ab sign in karen.');
+  switchTab('login');
+}
+function submitContact(){
+  const n=document.getElementById('c-name').value;
+  const ph=document.getElementById('c-phone').value;
+  if(!n||!ph){showToast('Naam aur phone number zaroor daalen!');return;}
+  showToast('Message bhej diya gaya! Hum jald contact karen ge.');
+  document.getElementById('c-name').value='';
+  document.getElementById('c-phone').value='';
+  document.getElementById('c-email').value='';
+  document.getElementById('c-msg').value='';
+}
+function adminTab(t){
+  const titles={dash:'Dashboard',orders:'Orders',gallery:'Gallery',messages:'Messages',settings:'Settings'};
+  document.querySelectorAll('.admin-menu a').forEach((a,i)=>{a.classList.remove('active');if(i===Object.keys(titles).indexOf(t))a.classList.add('active');});
+  const c=document.getElementById('admin-content');
+  if(t==='dash'){c.innerHTML=c.innerHTML;}
+}
+</script>
